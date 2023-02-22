@@ -1,25 +1,51 @@
-import {TextInput,StyleSheet, View,Text,TouchableOpacity } from "react-native"
+import { useState } from "react";
+import {
+    TextInput,
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    Platform,
+    KeyboardAvoidingView, 
+    Keyboard} from "react-native"
 
 export const RegistrationScreen = () => {
+    const[showKeyboard,setShowKeyboard] = useState(false)
+
+    const eventKeyboard = () => {
+        setShowKeyboard(true)
+        Keyboard.dismiss()
+    }
     return (
-        <View style ={styles.div}>
-            <Text style={styles.titleRegistration}>Регистрация</Text>
-            <TextInput 
-                style={styles.login}
-                placeholder="Логин"
-                placeholderTextColor={"#BDBDBD"}></TextInput>
-            <TextInput 
-                style={styles.email} 
-                placeholder="Адрес электронной почты "
-                placeholderTextColor={"#BDBDBD"}>
-            </TextInput>
-            <TextInput 
-                style={styles.password} 
-                placeholder="Пароль" 
-                secureTextEntry={true}
-                placeholderTextColor={"#BDBDBD"}></TextInput>
-                <TouchableOpacity style={styles.btn} activeOpacity={0.5}>
-                    <Text style={styles.btnText}>Зарегистрироваться</Text>
+        <View style ={{...styles.div, paddingBottom : showKeyboard ? 20 : 10}}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                    <Text style={styles.titleRegistration}>Регистрация</Text>
+                <TextInput 
+                    style={styles.login}
+                    placeholder="Логин"
+                    placeholderTextColor={"#BDBDBD"}
+                    onFocus={()=> setShowKeyboard(true)}>    
+                    </TextInput>
+                <TextInput 
+                    style={styles.email} 
+                    placeholder="Адрес электронной почты "
+                    placeholderTextColor={"#BDBDBD"}
+                    keyboardType="email-address"
+                    onFocus={()=> setShowKeyboard(true)}>
+                </TextInput>
+                <TextInput 
+                    style={styles.password} 
+                    placeholder="Пароль" 
+                    secureTextEntry={true}
+                    placeholderTextColor={"#BDBDBD"}
+                    onFocus={()=> setShowKeyboard(true)}>
+                </TextInput>
+            </KeyboardAvoidingView>
+                <TouchableOpacity 
+                    style={styles.btn} 
+                    activeOpacity={0.5}
+                    onPress={eventKeyboard}>
+                <Text style={styles.btnText}>Зарегистрироваться</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>Уже есть аккаунт? Войти</Text>
         </View>
