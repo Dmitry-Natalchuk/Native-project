@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { RegistrationScreen } from "./Screens/RegistrationScreen";
+import { LoginScreen } from "./Screens/LoginScreen";
 export default function App() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -17,7 +18,8 @@ export default function App() {
           style={styles.image}
         >
           <View>
-            <RegistrationScreen />
+            {/* <RegistrationScreen /> */}
+            <LoginScreen />
           </View>
         </ImageBackground>
       </View>
